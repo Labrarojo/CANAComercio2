@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CANAComercio</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="logotipo">Logotipo</string>
+    <string name="title_activity_dashboard">MainActivity</string>
+    <string name="title_employee">Empleados</string>
+    <string name="title_offer">Ofertas</string>
+    <string name="title_tickets">Tickets</string>
+    <string name="title_sales">Ventas</string>
+</resources>

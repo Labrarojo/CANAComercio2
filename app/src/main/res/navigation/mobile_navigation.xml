@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_employee">
+
+    <fragment
+        android:id="@+id/navigation_employee"
+        android:name="com.example.canacomercio.ui.FragmentController.EmployeeFragment"
+        android:label="@string/title_employee"
+        tools:layout="@layout/fragment_employee_list" />
+
+    <fragment
+        android:id="@+id/navigation_offer"
+        android:name="com.example.canacomercio.ui.FragmentController.OfferFragment"
+        android:label="@string/title_offer"
+        tools:layout="@layout/fragment_offer_list" />
+
+    <fragment
+        android:id="@+id/navigation_ticket"
+        android:name="com.example.canacomercio.ui.FragmentController.TicketsFragment"
+        android:label="@string/title_tickets"
+        tools:layout="@layout/fragment_tickets_list" />
+
+    <fragment
+        android:id="@+id/navigation_sale"
+        android:name="com.example.canacomercio.ui.FragmentController.SalesFragment"
+        android:label="@string/title_sales"
+        tools:layout="@layout/fragment_sales_list" />
+</navigation>
