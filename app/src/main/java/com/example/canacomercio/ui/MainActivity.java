@@ -12,9 +12,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.canacomercio.R;
-import com.example.canacomercio.retrofit.CanacoApiServicio;
-import com.example.canacomercio.retrofit.CanacoCliente;
-import com.example.canacomercio.retrofit.response.ResponseLogin;
+import com.example.canacomercio.common.Constants;
+import com.example.canacomercio.common.SharedPreferencesManager;
+import com.example.canacomercio.retrofit.CanacoApiService;
+import com.example.canacomercio.retrofit.CanacoClient;
+import com.example.canacomercio.retrofit.response.login.ResponseLogin;
 import com.example.canacomercio.retrofit.request.RequestLogin;
 
 import retrofit2.Call;
@@ -26,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogin;
     ImageView btnVerContraseña;
     EditText txtEmail, txtContraseña;
-    CanacoCliente canacoCliente;
-    CanacoApiServicio canacoApiServicio;
+    CanacoClient canacoClient;
+    CanacoApiService canacoApiService;
     boolean band = true;
 
     @Override
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void retrofitInit() {
-        canacoCliente = CanacoCliente.getInstance();
-        canacoApiServicio = canacoCliente.getCanacoApiService();
+        canacoClient = CanacoClient.getInstance();
+        canacoApiService = canacoClient.getCanacoApiService();
     }
 
     private void findViews() {
@@ -92,12 +94,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             RequestLogin requestLogin = new RequestLogin(email, contraseña, recordar);
 
-            Call<ResponseLogin> call = canacoApiServicio.doLogin(requestLogin);
+            Call<ResponseLogin> call = canacoApiService.doLogin(requestLogin);
             call.enqueue(new Callback<ResponseLogin>() {
                 @Override
                 public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
                     if (response.isSuccessful()){
                         Toast.makeText(MainActivity.this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show();
+
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_TYPE, response.body().getData().getType());
+                        SharedPreferencesManager.setSomeIntegerValue(Constants.PREF_COMERCIO_ID, response.body().getData().getComercioId());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_ROLE, response.body().getData().getRole());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_NOMBRE, response.body().getData().getAttributes().getNombre());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_A_PATERNO, response.body().getData().getAttributes().getApellidoPaterno());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_A_MATERNO, response.body().getData().getAttributes().getApellidoMaterno());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_FECHA_NACIM, response.body().getData().getAttributes().getFechaNacimiento());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_EMAIL, response.body().getData().getAttributes().getEmail());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_AVATAR, response.body().getData().getAttributes().getAvatar());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_TOKEN, response.body().getData().getAccessToken());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_TOKEN_TYPE, response.body().getData().getTokenType());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_EXPIRE, response.body().getData().getExpiresAt());
+                        SharedPreferencesManager.setSomeStringValue(Constants.PREF_COMERCIO_LINK, response.body().getLinks().getComercio());
+
                         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                         startActivity(intent);
                         finish();

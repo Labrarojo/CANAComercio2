@@ -9,8 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.canacomercio.R;
-import com.example.canacomercio.ui.RecyclerViewAdapter.MyOfertaRecyclerViewAdapter;
+import com.example.canacomercio.retrofit.response.offer.Datum;
+import com.example.canacomercio.ui.RecyclerViewAdapter.MyOfferRecyclerViewAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -19,6 +24,10 @@ public class OfferFragment extends Fragment {
 
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    RecyclerView recyclerView;
+    private List<Datum> offerList;
+    private MyOfferRecyclerViewAdapter adapterOffer;
+
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -57,14 +66,22 @@ public class OfferFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyOfertaRecyclerViewAdapter(DummyContent.ITEMS));
+            
+           loadOfferData();
+
+
         }
         return view;
+    }
+
+    private void loadOfferData() {
+        adapterOffer = new MyOfferRecyclerViewAdapter(offerList);
+        recyclerView.setAdapter(adapterOffer);
     }
 }

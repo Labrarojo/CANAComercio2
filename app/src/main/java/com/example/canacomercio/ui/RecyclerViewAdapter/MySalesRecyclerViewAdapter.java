@@ -1,32 +1,31 @@
 package com.example.canacomercio.ui.RecyclerViewAdapter;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.canacomercio.R;
-import com.example.canacomercio.ui.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRecyclerViewAdapter.ViewHolder> {
+/*public class MySalesRecyclerViewAdapter extends RecyclerView.Adapter<MySalesRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
 
-    public MyOfertaRecyclerViewAdapter(List<DummyItem> items) {
+    public MySalesRecyclerViewAdapter(List<DummyItem> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_offer, parent, false);
+                .inflate(R.layout.fragment_sales, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,4 +59,4 @@ public class MyOfertaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaRe
             return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
-}
+}*/

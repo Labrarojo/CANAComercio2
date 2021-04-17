@@ -3,21 +3,21 @@ package com.example.canacomercio.common;
 import android.app.Application;
 import android.content.Context;
 
-public class MiApp extends Application {
+public class MyApp extends Application {
 
-    private static MiApp instancia;
+    private static MyApp instance;
 
-    public static MiApp getInstance(){
-        return instancia;
+    public static MyApp getInstance(){
+        return instance;
     }
 
     public static Context getContext(){
-        return instancia;
+        return instance;
     }
 
     @Override
     public void onCreate() {
-        instancia = this;
+        instance = this;
         super.onCreate();
     }
 }

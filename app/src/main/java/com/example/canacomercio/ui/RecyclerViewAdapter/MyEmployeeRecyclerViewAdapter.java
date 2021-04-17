@@ -8,26 +8,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.canacomercio.R;
-import com.example.canacomercio.ui.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyVentasRecyclerViewAdapter extends RecyclerView.Adapter<MyVentasRecyclerViewAdapter.ViewHolder> {
+/*public class MyEmployeeRecyclerViewAdapter extends RecyclerView.Adapter<MyEmployeeRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
 
-    public MyVentasRecyclerViewAdapter(List<DummyItem> items) {
+    public MyEmployeeRecyclerViewAdapter(List<DummyItem> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_sales, parent, false);
+                .inflate(R.layout.fragment_employee, parent, false);
         return new ViewHolder(view);
     }
 
@@ -61,4 +59,4 @@ public class MyVentasRecyclerViewAdapter extends RecyclerView.Adapter<MyVentasRe
             return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
-}
+}*/

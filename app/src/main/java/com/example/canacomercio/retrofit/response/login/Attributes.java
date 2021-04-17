@@ -1,5 +1,5 @@
 
-package com.example.canacomercio.retrofit;
+package com.example.canacomercio.retrofit.response.login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

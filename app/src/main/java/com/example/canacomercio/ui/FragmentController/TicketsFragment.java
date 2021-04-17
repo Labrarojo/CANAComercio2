@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.canacomercio.R;
-import com.example.canacomercio.ui.RecyclerViewAdapter.MyTicketsRecyclerViewAdapter;
+import com.example.canacomercio.retrofit.response.offer.Datum;
+import com.example.canacomercio.ui.RecyclerViewAdapter.MyOfferRecyclerViewAdapter;
+
+import java.util.List;
 
 
 /**
@@ -25,6 +28,8 @@ public class TicketsFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private List<Datum> offerList;
+    private MyOfferRecyclerViewAdapter adapterOffer;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -66,7 +71,8 @@ public class TicketsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyTicketsRecyclerViewAdapter(DummyContent.ITEMS));
+            adapterOffer = new MyOfferRecyclerViewAdapter(offerList);
+            recyclerView.setAdapter(adapterOffer);
         }
         return view;
     }

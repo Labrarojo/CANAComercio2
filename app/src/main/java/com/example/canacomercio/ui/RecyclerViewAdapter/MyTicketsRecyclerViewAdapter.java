@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.canacomercio.R;
-import com.example.canacomercio.ui.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyTicketsRecyclerViewAdapter extends RecyclerView.Adapter<MyTicketsRecyclerViewAdapter.ViewHolder> {
+/*public class MyTicketsRecyclerViewAdapter extends RecyclerView.Adapter<MyTicketsRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
 
@@ -61,4 +59,4 @@ public class MyTicketsRecyclerViewAdapter extends RecyclerView.Adapter<MyTickets
             return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
-}
+}*/
