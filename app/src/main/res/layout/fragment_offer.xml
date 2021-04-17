@@ -2,9 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:orientation="horizontal">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="TextView"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textViewStartDate"
             app:layout_constraintTop_toTopOf="@+id/textViewStartDate" />
 
@@ -35,26 +38,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="TextView"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/textViewBonus"
             app:layout_constraintTop_toBottomOf="@+id/textViewBonus" />
 
         <TextView
             android:id="@+id/textViewContents"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="TextView"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textViewTittle"
             app:layout_constraintTop_toBottomOf="@+id/textViewTittle" />
 
         <TextView
             android:id="@+id/textViewTittle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="More Fonts..."
             android:text="TextView"
+            android:textAlignment="viewStart"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

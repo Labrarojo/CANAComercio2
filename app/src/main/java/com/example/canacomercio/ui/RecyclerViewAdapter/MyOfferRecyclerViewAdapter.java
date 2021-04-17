@@ -10,6 +10,7 @@ import com.example.canacomercio.R;
 import com.example.canacomercio.retrofit.response.offer.Datum;
 
 
+
 import java.util.List;
 
 /**
@@ -33,11 +34,12 @@ public class MyOfferRecyclerViewAdapter extends RecyclerView.Adapter<MyOfferRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+
         holder.tvTittle.setText(holder.mItem.getAttributes().getNombre());
         holder.tvContents.setText(holder.mItem.getAttributes().getDescripcion());
-        holder.tvStartDate.setText(holder.mItem.getAttributes().getFechaInicio());
-        holder.tvEndDate.setText(holder.mItem.getAttributes().getFechaFin());
-        holder.tvBonus.setText(holder.mItem.getAttributes().getBonificacion());
+        holder.tvStartDate.setText(holder.mItem.getAttributes().getFechaInicio().substring(0, 10));
+        holder.tvEndDate.setText(holder.mItem.getAttributes().getFechaFin().substring(0, 10));
+        holder.tvBonus.setText(holder.mItem.getAttributes().getBonificacion().toString());
     }
 
     @Override

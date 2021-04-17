@@ -27,7 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_employee, R.id.navigation_offer, R.id.navigation_ticket, R.id.navigation_sale)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.fragmentContainer);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 

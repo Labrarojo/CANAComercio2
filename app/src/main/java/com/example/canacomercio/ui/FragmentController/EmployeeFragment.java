@@ -11,12 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.canacomercio.R;
-import com.example.canacomercio.retrofit.response.offer.Datum;
-import com.example.canacomercio.ui.RecyclerViewAdapter.MyOfferRecyclerViewAdapter;
+import com.example.canacomercio.retrofit.AuthCanacoApiService;
+import com.example.canacomercio.retrofit.AuthCanacoClient;
+import com.example.canacomercio.retrofit.response.employee.Datum;
+import com.example.canacomercio.retrofit.response.employee.Employee;
+import com.example.canacomercio.ui.RecyclerViewAdapter.MyEmployeeRecyclerViewAdapter;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -28,8 +36,12 @@ public class EmployeeFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private List<Datum> offerList;
-    private MyOfferRecyclerViewAdapter adapterOffer;
+    protected RecyclerView recyclerView;
+    private List<Datum> employeeList;
+    private Employee employee;
+    private MyEmployeeRecyclerViewAdapter adapterEmployee;
+    AuthCanacoApiService authCanacoApiService;
+    AuthCanacoClient authCanacoClient;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,9 +83,36 @@ public class EmployeeFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapterOffer = new MyOfferRecyclerViewAdapter(offerList);
-            recyclerView.setAdapter(adapterOffer);
+            retrofitInit();
+            loadOfferData();
         }
         return view;
+    }
+
+    private void retrofitInit() {
+        authCanacoClient = AuthCanacoClient.getInstance();
+        authCanacoApiService = authCanacoClient.getAuthCanacoApiService();
+    }
+
+    private void loadOfferData() {
+        Call<Employee> call = authCanacoApiService.getAllEmployees();
+        call.enqueue(new Callback<Employee>() {
+            @Override
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
+                if (response.isSuccessful()){
+                    employee = response.body();
+                    employeeList = employee.getData();
+                    adapterEmployee = new MyEmployeeRecyclerViewAdapter(employeeList);
+                    recyclerView.setAdapter(adapterEmployee);
+                }else{
+                    Toast.makeText(getActivity(),"Algo ha ido mal", Toast.LENGTH_SHORT);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Employee> call, Throwable t) {
+                Toast.makeText(getActivity(),"Error en la conexión", Toast.LENGTH_SHORT);
+            }
+        });
     }
 }

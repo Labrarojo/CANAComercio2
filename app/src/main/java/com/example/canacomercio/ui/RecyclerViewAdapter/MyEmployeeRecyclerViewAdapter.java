@@ -5,20 +5,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.canacomercio.R;
+import com.example.canacomercio.retrofit.response.employee.Datum;
 
 import java.util.List;
 
 /**
  * TODO: Replace the implementation with code for your data type.
  */
-/*public class MyEmployeeRecyclerViewAdapter extends RecyclerView.Adapter<MyEmployeeRecyclerViewAdapter.ViewHolder> {
+public class MyEmployeeRecyclerViewAdapter extends RecyclerView.Adapter<MyEmployeeRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Datum> mValues;
+    private String username;
 
-    public MyEmployeeRecyclerViewAdapter(List<DummyItem> items) {
+    public MyEmployeeRecyclerViewAdapter(List<Datum> items) {
         mValues = items;
     }
 
@@ -32,8 +35,14 @@ import java.util.List;
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+
+        username = holder.mItem.getAttributes().getNombre()+" "+
+                holder.mItem.getAttributes().getApellidoPaterno()+" "+
+                holder.mItem.getAttributes().getApellidoMaterno();
+
+        holder.tvUsername.setText(username);
+        holder.tvRole.setText(holder.mItem.getType());
+        holder.tvEmail.setText(holder.mItem.getAttributes().getEmail());
     }
 
     @Override
@@ -43,20 +52,24 @@ import java.util.List;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView tvUsername;
+        public final TextView tvRole;
+        public final TextView tvEmail;
+        public final ImageView ivAvatar;
+        public Datum mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tvUsername = view.findViewById(R.id.textViewUsername);
+            tvRole = view.findViewById(R.id.textViewRole);
+            tvEmail = view.findViewById(R.id.textViewEmail);
+            ivAvatar = view.findViewById(R.id.imageViewAvatar);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + tvUsername.getText() + "'";
         }
     }
-}*/
+}
