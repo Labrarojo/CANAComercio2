@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class MyOfferRecyclerViewAdapter extends RecyclerView.Adapter<MyOfferRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Datum> mValues;
+    private List<Datum> mValues;
 
     public MyOfferRecyclerViewAdapter(List<Datum> items) {
         mValues = items;
@@ -33,6 +33,7 @@ public class MyOfferRecyclerViewAdapter extends RecyclerView.Adapter<MyOfferRecy
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        if (mValues != null){
         holder.mItem = mValues.get(position);
 
         holder.tvTittle.setText(holder.mItem.getAttributes().getNombre());
@@ -40,11 +41,21 @@ public class MyOfferRecyclerViewAdapter extends RecyclerView.Adapter<MyOfferRecy
         holder.tvStartDate.setText(holder.mItem.getAttributes().getFechaInicio().substring(0, 10));
         holder.tvEndDate.setText(holder.mItem.getAttributes().getFechaFin().substring(0, 10));
         holder.tvBonus.setText(holder.mItem.getAttributes().getBonificacion().toString());
+        }
+    }
+
+    public void setData(List<Datum> offerList){
+        this.mValues = offerList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        if (mValues != null){
+            return mValues.size();
+        }else {
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

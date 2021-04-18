@@ -3,7 +3,8 @@ package com.example.canacomercio.ui.FragmentController;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -11,21 +12,16 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 
 import com.example.canacomercio.R;
-import com.example.canacomercio.retrofit.AuthCanacoApiService;
-import com.example.canacomercio.retrofit.AuthCanacoClient;
+import com.example.canacomercio.data.OfferViewModel;
 import com.example.canacomercio.retrofit.response.offer.Datum;
 import com.example.canacomercio.retrofit.response.offer.Offer;
 import com.example.canacomercio.ui.RecyclerViewAdapter.MyOfferRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -33,12 +29,11 @@ import retrofit2.Response;
 public class OfferFragment extends Fragment {
 
     // TODO: Customize parameters
-    private int mColumnCount = 2;
+    private int mColumnCount = 1;
     RecyclerView recyclerView;
     private List<Datum> offerList;
-    private Offer offer;
-    AuthCanacoApiService authCanacoApiService;
-    AuthCanacoClient authCanacoClient;
+    OfferViewModel offerViewModel;
+    MyOfferRecyclerViewAdapter adapterOffer;
 
 
     // TODO: Customize parameter argument names
@@ -65,6 +60,8 @@ public class OfferFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        offerViewModel = new ViewModelProvider(this).get(OfferViewModel.class);
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -84,35 +81,19 @@ public class OfferFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new StaggeredGridLayoutManager(mColumnCount, StaggeredGridLayoutManager.VERTICAL));
             }
-            retrofitInit();
+            adapterOffer = new MyOfferRecyclerViewAdapter(offerList);
+            recyclerView.setAdapter(adapterOffer);
             loadOfferData();
         }
         return view;
     }
 
-    private void retrofitInit() {
-        authCanacoClient = AuthCanacoClient.getInstance();
-        authCanacoApiService = authCanacoClient.getAuthCanacoApiService();
-    }
-
     private void loadOfferData() {
-        Call<Offer> call = authCanacoApiService.getAllOffers();
-        call.enqueue(new Callback<Offer>() {
+        offerViewModel.getOffer().observe(getActivity(), new Observer<Offer>() {
             @Override
-            public void onResponse(Call<Offer> call, Response<Offer> response) {
-                if (response.isSuccessful()){
-                    offer = response.body();
-                    offerList = offer.getData();
-                    MyOfferRecyclerViewAdapter adapterOffer = new MyOfferRecyclerViewAdapter(offerList);
-                    recyclerView.setAdapter(adapterOffer);
-                }else{
-                    Toast.makeText(getActivity(),"Algo ha ido mal", Toast.LENGTH_SHORT);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Offer> call, Throwable t) {
-                Toast.makeText(getActivity(),"Error en la conexión", Toast.LENGTH_SHORT);
+            public void onChanged(Offer offer) {
+                offerList = offer.getData();
+                adapterOffer.setData(offerList);
             }
         });
     }

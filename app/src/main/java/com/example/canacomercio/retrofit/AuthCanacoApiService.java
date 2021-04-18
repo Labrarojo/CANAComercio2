@@ -15,6 +15,12 @@ public interface AuthCanacoApiService {
     Call<Offer> getAllOffers();
 
     @GET("comercios/11/admins")
+    Call<Employee> getAllAdmins();
+
+    @GET("comercios/11/gerentes")
+    Call<Employee> getAllManagers();
+
+    @GET("comercios/11/empleados")
     Call<Employee> getAllEmployees();
 
 }

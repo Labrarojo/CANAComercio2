@@ -36,7 +36,7 @@ public class EmployeeFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    protected RecyclerView recyclerView;
+    RecyclerView recyclerView;
     private List<Datum> employeeList;
     private Employee employee;
     private MyEmployeeRecyclerViewAdapter adapterEmployee;
@@ -77,7 +77,7 @@ public class EmployeeFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -95,13 +95,54 @@ public class EmployeeFragment extends Fragment {
     }
 
     private void loadOfferData() {
-        Call<Employee> call = authCanacoApiService.getAllEmployees();
-        call.enqueue(new Callback<Employee>() {
+        Call<Employee> callAdmin = authCanacoApiService.getAllAdmins();
+        Call<Employee> callManager = authCanacoApiService.getAllManagers();
+        Call<Employee> callEmployee = authCanacoApiService.getAllEmployees();
+
+        callAdmin.enqueue(new Callback<Employee>() {
             @Override
             public void onResponse(Call<Employee> call, Response<Employee> response) {
                 if (response.isSuccessful()){
                     employee = response.body();
                     employeeList = employee.getData();
+                    adapterEmployee = new MyEmployeeRecyclerViewAdapter(employeeList);
+                    recyclerView.setAdapter(adapterEmployee);
+                }else{
+                    Toast.makeText(getActivity(),"Algo ha ido mal", Toast.LENGTH_SHORT);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Employee> call, Throwable t) {
+                Toast.makeText(getActivity(),"Error en la conexión", Toast.LENGTH_SHORT);
+            }
+        });
+
+        callManager.enqueue(new Callback<Employee>() {
+            @Override
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
+                if (response.isSuccessful()){
+                    employee = response.body();
+                    employeeList.addAll(employee.getData());
+                    adapterEmployee = new MyEmployeeRecyclerViewAdapter(employeeList);
+                    recyclerView.setAdapter(adapterEmployee);
+                }else{
+                    Toast.makeText(getActivity(),"Algo ha ido mal", Toast.LENGTH_SHORT);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Employee> call, Throwable t) {
+                Toast.makeText(getActivity(),"Error en la conexión", Toast.LENGTH_SHORT);
+            }
+        });
+
+        callEmployee.enqueue(new Callback<Employee>() {
+            @Override
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
+                if (response.isSuccessful()){
+                    employee = response.body();
+                    employeeList.addAll(employee.getData());
                     adapterEmployee = new MyEmployeeRecyclerViewAdapter(employeeList);
                     recyclerView.setAdapter(adapterEmployee);
                 }else{

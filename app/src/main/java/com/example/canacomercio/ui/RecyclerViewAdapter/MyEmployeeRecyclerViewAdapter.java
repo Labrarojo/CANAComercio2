@@ -20,6 +20,7 @@ public class MyEmployeeRecyclerViewAdapter extends RecyclerView.Adapter<MyEmploy
 
     private final List<Datum> mValues;
     private String username;
+    private String role;
 
     public MyEmployeeRecyclerViewAdapter(List<Datum> items) {
         mValues = items;
@@ -39,9 +40,16 @@ public class MyEmployeeRecyclerViewAdapter extends RecyclerView.Adapter<MyEmploy
         username = holder.mItem.getAttributes().getNombre()+" "+
                 holder.mItem.getAttributes().getApellidoPaterno()+" "+
                 holder.mItem.getAttributes().getApellidoMaterno();
+        if (holder.mItem.getType().equals("admins")){
+            role = "Administrador";
+        }else if (holder.mItem.getType().equals("gerentes")){
+            role = "Gerente";
+        }else {
+            role = "Empleado";
+        }
 
         holder.tvUsername.setText(username);
-        holder.tvRole.setText(holder.mItem.getType());
+        holder.tvRole.setText(role);
         holder.tvEmail.setText(holder.mItem.getAttributes().getEmail());
     }
 
